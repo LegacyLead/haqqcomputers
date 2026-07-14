@@ -110,11 +110,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .nav-links{ position:fixed; top:0; right:0; height:100vh; width:78%; max-width:340px;
     background:var(--ink); flex-direction:column; align-items:flex-start; justify-content:center;
     padding:40px; gap:28px; transition:transform .45s cubic-bezier(.2,.8,.2,1); border-left:1px solid var(--line-dark);
-    transform:translateX(100%); }
+    transform:translateX(100%); z-index:95; }
   .nav-links.open{ transform:translateX(0); }
   .nav-links a{ font-size:19px; }
-  .nav-burger{ display:flex; flex-direction:column; gap:5px; width:26px; z-index:200; }
-  .nav-burger span{ height:2px; background:#fff; border-radius:2px; transition:.3s; }
+  .nav-burger{ display:flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; width:26px; height:26px; z-index:200; background:none; border:none; padding:0; -webkit-appearance:none; appearance:none; }
+  .nav-burger span{ display:block; width:100%; height:2px; background:#fff; border-radius:2px; transition:.3s; }
   .nav-cta .btn-ghost-dark span.txt{ display:none; }
   .nav-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.5); opacity:0; pointer-events:none; transition:opacity .4s; z-index:90; }
   .nav-overlay.show{ opacity:1; pointer-events:auto; }
@@ -155,6 +155,7 @@ section{ position:relative; }
 .section-pad{ padding:120px 0; }
 @media (max-width:768px){ .section-pad{ padding:76px 0; } }
 .dark-section{ background:var(--ink); color:#fff; }
+.academy-dark{ background:linear-gradient(155deg, var(--navy) 0%, var(--ink) 60%); border-top:1px solid rgba(61,167,218,.18); }
 .dark-section .eyebrow{ color:var(--cyan); }
 
 /* ---------------- Cards ---------------- */

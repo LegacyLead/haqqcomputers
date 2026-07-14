@@ -82,6 +82,15 @@ if(heroMain && !prefersReducedMotion){
     }
   }, { passive:true });
 }
+// ---- Graceful fallback for any image that fails to load ----
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('error', () => {
+    img.style.display = 'none';
+    const parent = img.closest('.product-media, .portfolio-item, .visual, .service-detail .visual');
+    if(parent){ parent.style.background = 'linear-gradient(135deg, #eef2f7, #dde6ee)'; }
+  }, { once:true });
+});
+
 document.querySelectorAll('.js-year').forEach(el => el.textContent = new Date().getFullYear());
 
 // ---- WhatsApp CTA helper ----

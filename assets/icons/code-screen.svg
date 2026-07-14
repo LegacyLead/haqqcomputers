@@ -1,0 +1,12 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#060f1f"/>
+  <rect x="30" y="35" width="140" height="95" rx="6" fill="none" stroke="#3da7da" stroke-width="2.5" opacity=".8"/>
+  <text x="42" y="58" font-family="monospace" font-size="11" fill="#3da7da">&lt;div&gt;</text>
+  <text x="52" y="74" font-family="monospace" font-size="11" fill="#0b8fe0">const app</text>
+  <text x="52" y="90" font-family="monospace" font-size="11" fill="#5cc4f0">return (</text>
+  <text x="62" y="106" font-family="monospace" font-size="11" fill="#3da7da">&lt;Hero /&gt;</text>
+  <text x="42" y="122" font-family="monospace" font-size="11" fill="#3da7da">&lt;/div&gt;</text>
+  <rect x="20" y="140" width="20" height="10" rx="2" fill="#0b63d6"/>
+  <rect x="45" y="140" width="60" height="10" rx="2" fill="#0a2a5e"/>
+  <path d="M60 155 L100 155" stroke="#3da7da" stroke-width="1" opacity=".4"/>
+</svg>
