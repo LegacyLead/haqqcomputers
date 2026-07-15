@@ -167,6 +167,9 @@ footer.site-footer{ background:var(--ink); color:rgba(255,255,255,.7); padding:8
 footer.site-footer h4{ color:#fff; font-size:14px; font-family:var(--mono); letter-spacing:.08em; text-transform:uppercase; margin-bottom:20px; font-weight:500; }
 footer.site-footer a{ color:rgba(255,255,255,.6); font-size:14.5px; display:block; padding:6px 0; transition:color .25s; }
 footer.site-footer a:hover{ color:var(--cyan); }
+.footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:56px; border-bottom:1px solid var(--line-dark); }
+@media (max-width:760px){ .footer-grid{ grid-template-columns:1fr 1fr; gap:32px 24px; } .footer-grid > div:first-child{ grid-column:1 / -1; } }
+@media (max-width:460px){ .footer-grid{ grid-template-columns:1fr; } }
 
 /* ---------------- WhatsApp float ---------------- */
 .wa-float{
@@ -229,6 +232,8 @@ footer.site-footer a:hover{ color:var(--cyan); }
 
 /* ---- Service matrix ---- */
 .matrix{ display:grid; grid-template-columns:repeat(12,1fr); gap:22px; }
+.matrix-3col{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+@media (max-width:860px){ .matrix-3col{ grid-template-columns:1fr; } }
 .pillar{ grid-column:span 6; padding:38px 34px; position:relative; }
 .pillar:nth-child(1){ grid-column:span 7; }
 .pillar:nth-child(2){ grid-column:span 5; }
@@ -267,6 +272,10 @@ footer.site-footer a:hover{ color:var(--cyan); }
 .portfolio-item:hover img{ transform:scale(1.06); }
 .portfolio-item::before{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(6,15,31,.15) 30%, rgba(6,15,31,.92) 100%); z-index:1; }
 .portfolio-item .content{ position:relative; z-index:2; color:#fff; }
+.portfolio-item .icon-illustration{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle at 50% 38%, rgba(11,99,214,.22), transparent 65%); }
+.portfolio-item .icon-illustration svg{ width:46%; max-width:120px; opacity:.92; }
+.portfolio-item .icon-illustration .ring{ position:absolute; width:70%; aspect-ratio:1; border:1px solid rgba(61,167,218,.2); border-radius:50%; }
+.portfolio-item .icon-illustration .ring.r2{ width:95%; border-color:rgba(11,99,214,.14); }
 .portfolio-item .tag-line{ font-family:var(--mono); font-size:11px; color:var(--cyan); text-transform:uppercase; letter-spacing:.08em; }
 .portfolio-item h4{ font-size:21px; margin-top:8px; }
 @media (max-width:860px){ .portfolio-strip{ grid-template-columns:1fr; } }
