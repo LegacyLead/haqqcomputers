@@ -191,6 +191,22 @@ footer.site-footer a:hover{ color:var(--cyan); }
 
 ::selection{ background:var(--signal); color:#fff; }
 
+/* ---------------- Preloader ---------------- */
+#preloader{
+  position:fixed; inset:0; z-index:9999; background:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity .5s ease, visibility .5s ease;
+}
+#preloader.loaded{ opacity:0; visibility:hidden; pointer-events:none; }
+.preloader-mark{ position:relative; width:76px; height:76px; display:flex; align-items:center; justify-content:center; }
+.preloader-mark::before{
+  content:''; position:absolute; width:100%; height:100%; border-radius:50%;
+  background:conic-gradient(from 0deg, transparent 0deg, var(--cyan) 55deg, transparent 130deg, var(--signal) 210deg, transparent 300deg);
+  animation:logo-orbit-spin 1.1s linear infinite; filter:blur(4px); opacity:.85;
+}
+.preloader-mark img{ position:relative; z-index:1; width:44px; height:auto; animation:logo-glow-pulse 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce){ #preloader{ transition:none; } .preloader-mark::before, .preloader-mark img{ animation:none; } }
+
 /* Page hero offset title treatment shared */
 .title-huge{ font-size:clamp(40px,6.4vw,92px); }
 
@@ -463,3 +479,10 @@ footer.site-footer a:hover{ color:var(--cyan); }
 .legal-toc{ border:1px solid var(--line); padding:24px 26px; margin-bottom:44px; }
 .legal-toc h4{ font-family:var(--mono); font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-45); margin-bottom:14px; }
 .legal-toc a{ display:block; font-size:14px; color:var(--signal); padding:5px 0; }
+
+/* ---------------- Shop pagination ---------------- */
+.shop-pagination{ display:flex; justify-content:center; align-items:center; gap:8px; margin-top:50px; flex-wrap:wrap; }
+.page-btn{ min-width:40px; height:40px; padding:0 12px; border:1px solid var(--line); background:var(--paper); color:var(--navy); font-family:var(--mono); font-size:13px; font-weight:500; border-radius:2px; transition:.25s; }
+.page-btn:hover:not(.disabled):not(.active){ border-color:var(--signal); color:var(--signal); }
+.page-btn.active{ background:var(--navy); color:#fff; border-color:var(--navy); }
+.page-btn.disabled{ opacity:.35; cursor:not-allowed; }

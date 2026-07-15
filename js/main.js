@@ -1,5 +1,14 @@
 /* HaQQ Computers & Technology — shared behavior */
 
+// ---- Preloader ----
+const preloader = document.getElementById('preloader');
+if(preloader){
+  const hidePreloader = () => preloader.classList.add('loaded');
+  window.addEventListener('load', () => setTimeout(hidePreloader, 350));
+  // Safety net: never let it hang forever if load event is delayed
+  setTimeout(hidePreloader, 3000);
+}
+
 // ---- Nav scroll state + mobile toggle ----
 const nav = document.querySelector('.site-nav');
 const burger = document.querySelector('.nav-burger');
@@ -158,25 +167,74 @@ document.querySelectorAll('.carousel').forEach(car => {
   car.addEventListener('mouseleave', () => auto = setInterval(() => go(idx + 1), 5500));
 });
 
-// ---- Shop filters (only present on shop.html) ----
+// ---- Shop filters + pagination (only present on shop.html) ----
 const filterButtons = document.querySelectorAll('.filter-chip');
 const shopGrid = document.querySelector('.shop-grid');
+const paginationWrap = document.querySelector('.shop-pagination');
+const productCountEl = document.querySelector('.product-count');
+
 if(filterButtons.length && shopGrid){
-  const items = shopGrid.querySelectorAll('.product-card');
+  const allItems = [...shopGrid.querySelectorAll('.product-card')];
+  const PER_PAGE = 12;
+  let currentFilter = 'all';
+  let currentPage = 1;
+
+  function getFiltered(){
+    return currentFilter === 'all' ? allItems : allItems.filter(item => item.dataset.category === currentFilter);
+  }
+
+  function renderPage(){
+    const filtered = getFiltered();
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+    if(currentPage > totalPages) currentPage = totalPages;
+
+    // Hide everything, then show only the current page's slice of the filtered set
+    allItems.forEach(item => item.style.display = 'none');
+    const start = (currentPage - 1) * PER_PAGE;
+    filtered.slice(start, start + PER_PAGE).forEach(item => item.style.display = '');
+
+    if(productCountEl){
+      productCountEl.textContent = `${filtered.length} product${filtered.length === 1 ? '' : 's'} shown`;
+    }
+
+    if(paginationWrap){
+      paginationWrap.innerHTML = '';
+      if(totalPages > 1){
+        const mkBtn = (label, page, opts = {}) => {
+          const b = document.createElement('button');
+          b.className = 'page-btn' + (opts.active ? ' active' : '') + (opts.disabled ? ' disabled' : '');
+          b.textContent = label;
+          b.disabled = !!opts.disabled;
+          b.addEventListener('click', () => { currentPage = page; renderPage(); scrollToGridTop(); });
+          return b;
+        };
+        paginationWrap.appendChild(mkBtn('‹ Prev', currentPage - 1, { disabled: currentPage === 1 }));
+        for(let i = 1; i <= totalPages; i++){
+          paginationWrap.appendChild(mkBtn(String(i), i, { active: i === currentPage }));
+        }
+        paginationWrap.appendChild(mkBtn('Next ›', currentPage + 1, { disabled: currentPage === totalPages }));
+      }
+    }
+  }
+
+  function scrollToGridTop(){
+    const toolbar = document.querySelector('.shop-toolbar');
+    if(toolbar) toolbar.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
   filterButtons.forEach(chip => {
     chip.addEventListener('click', () => {
       filterButtons.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
-      const f = chip.dataset.filter;
-      items.forEach(item => {
-        const show = f === 'all' || item.dataset.category === f;
-        item.style.display = show ? '' : 'none';
-      });
+      currentFilter = chip.dataset.filter;
+      currentPage = 1;
+      renderPage();
     });
   });
+
+  renderPage();
 }
 
-// ---- Contact form (front-end validation + mailto fallback demo) ----
 // ---- Contact form (front-end validation + mailto fallback) ----
 // UPGRADE PATH: for guaranteed delivery without relying on the visitor's email
 // client, sign up free at https://formspree.io, create a form, and replace
